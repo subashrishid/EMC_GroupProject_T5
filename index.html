@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="index.css">
 
   <style>
-    /* EMC Team 5: 3D project heading */
+    /* 3D project heading */
     .hero h1.team-title {
       font-size: clamp(2rem, 4.6vw, 3.65rem);
       font-weight: 900;
@@ -60,6 +60,106 @@
         0 10px 18px rgba(0, 0, 0, 0.4);
     }
 
+    /* Prevent the rolling track from expanding the hero grid */
+    .hero .c > div {
+      min-width: 0;
+    }
+
+    /* DevOps rolling tools */
+    .devops-tools {
+      width: 100%;
+      max-width: 540px;
+      min-width: 0;
+      margin: 24px 0 28px;
+    }
+
+    .devops-tools-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .devops-tools-label {
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .devops-tools-window {
+      overflow: hidden;
+      padding: 14px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.22);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+      -webkit-mask-image: linear-gradient(
+        to right, transparent, #000 6%, #000 94%, transparent
+      );
+      mask-image: linear-gradient(
+        to right, transparent, #000 6%, #000 94%, transparent
+      );
+    }
+
+    .devops-tools-track {
+      display: flex;
+      width: max-content;
+      animation: devops-tools-roll 60s linear infinite;
+    }
+
+    .devops-tools-group {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      gap: 14px;
+      padding-right: 14px;
+    }
+
+    .devops-tools-group span {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      padding: 8px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 800;
+      white-space: nowrap;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .devops-tools-group span:nth-child(3n + 1) {
+      color: #ffd18a;
+    }
+
+    .devops-tools-window:hover .devops-tools-track,
+    .devops-tools.is-paused .devops-tools-track {
+      animation-play-state: paused;
+    }
+
+    .devops-tools-toggle {
+      padding: 4px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font: inherit;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+
+    @keyframes devops-tools-roll {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
     @media (max-width: 380px) {
       .hero h1.team-title {
         font-size: 1.85rem;
@@ -68,9 +168,32 @@
       .team-title-sub {
         letter-spacing: 0;
       }
+
+      .devops-tools-group span {
+        padding: 7px 14px;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .devops-tools-track {
+        animation: none;
+      }
+
+      .devops-tools-window {
+        overflow-x: auto;
+        -webkit-mask-image: none;
+        mask-image: none;
+      }
+
+      .devops-tools-group[aria-hidden="true"],
+      .devops-tools-toggle {
+        display: none;
+      }
     }
   </style>
 </head>
+
 <body>
   <div id="pg"></div>
 
@@ -111,10 +234,83 @@
             <span class="team-title-sub">GROUP PROJECT</span>
           </h1>
 
-          <p>
-            Residential, commercial and industrial construction delivered
-            on time and on budget by 120+ skilled professionals.
-          </p>
+          <!-- Rolling tools replace the construction description -->
+          <div class="devops-tools" id="devops-tools">
+            <div class="devops-tools-header">
+              <span class="devops-tools-label">Our DevOps Toolkit</span>
+              <button
+                class="devops-tools-toggle"
+                id="devops-tools-toggle"
+                type="button"
+                aria-pressed="false"
+                aria-controls="devops-tools-track"
+                hidden
+              >Pause rolling</button>
+            </div>
+
+            <div class="devops-tools-window">
+              <div class="devops-tools-track" id="devops-tools-track">
+                <div class="devops-tools-group">
+                  <span>Linux</span>
+                  <span>Git</span>
+                  <span>GitHub</span>
+                  <span>Jenkins</span>
+                  <span>AWS</span>
+                  <span>Docker</span>
+                  <span>Kubernetes</span>
+                  <span>Terraform</span>
+                  <span>Ansible</span>
+                  <span>Bash</span>
+                  <span>Python</span>
+                  <span>GitHub Actions</span>
+                  <span>GitLab CI/CD</span>
+                  <span>Helm</span>
+                  <span>Argo CD</span>
+                  <span>Prometheus</span>
+                  <span>Grafana</span>
+                  <span>SonarQube</span>
+                  <span>Trivy</span>
+                  <span>Nexus</span>
+                  <span>Nginx</span>
+                  <span>Elasticsearch</span>
+                  <span>Logstash</span>
+                  <span>Kibana</span>
+                  <span>Azure</span>
+                  <span>Google Cloud</span>
+                </div>
+
+                <!-- Identical copy creates a continuous loop -->
+                <div class="devops-tools-group" aria-hidden="true">
+                  <span>Linux</span>
+                  <span>Git</span>
+                  <span>GitHub</span>
+                  <span>Jenkins</span>
+                  <span>AWS</span>
+                  <span>Docker</span>
+                  <span>Kubernetes</span>
+                  <span>Terraform</span>
+                  <span>Ansible</span>
+                  <span>Bash</span>
+                  <span>Python</span>
+                  <span>GitHub Actions</span>
+                  <span>GitLab CI/CD</span>
+                  <span>Helm</span>
+                  <span>Argo CD</span>
+                  <span>Prometheus</span>
+                  <span>Grafana</span>
+                  <span>SonarQube</span>
+                  <span>Trivy</span>
+                  <span>Nexus</span>
+                  <span>Nginx</span>
+                  <span>Elasticsearch</span>
+                  <span>Logstash</span>
+                  <span>Kibana</span>
+                  <span>Azure</span>
+                  <span>Google Cloud</span>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div class="acts">
             <a class="btn" href="contact.html">Get a free estimate</a>
@@ -138,7 +334,6 @@
             height="500"
             fetchpriority="high"
           >
-
           <img
             class="hero-in"
             src="https://images.unsplash.com/photo-1558227691-41ea78d1f631?auto=format&fit=crop&w=700&q=70"
@@ -148,11 +343,9 @@
             height="500"
             loading="lazy"
           >
-
           <div class="fb f1">
             <span data-count="250">0</span>+ projects built
           </div>
-
           <div class="fb f2">★ 4.9 client rating</div>
         </div>
       </div>
@@ -182,17 +375,14 @@
             <b data-count="250">0</b><i>+</i>
             <span>Projects completed</span>
           </div>
-
           <div class="stat" data-r>
             <b data-count="20">0</b><i>+</i>
             <span>Years of experience</span>
           </div>
-
           <div class="stat" data-r>
             <b data-count="120">0</b><i>+</i>
             <span>Skilled professionals</span>
           </div>
-
           <div class="stat" data-r>
             <b data-count="98">0</b><i>%</i>
             <span>On-time handover</span>
@@ -207,49 +397,25 @@
           <div class="eb">What we build</div>
           <h2>One team for every kind of structure</h2>
         </div>
-
         <div class="cards">
           <article class="card tilt" data-r>
-            <img
-              src="https://images.unsplash.com/photo-1687169503260-85f00f122398?auto=format&fit=crop&w=1200&q=70"
-              onerror="this.onerror=null;this.src='images/villa.svg'"
-              alt="Residential"
-              width="800"
-              height="500"
-              loading="lazy"
-            >
+            <img src="https://images.unsplash.com/photo-1687169503260-85f00f122398?auto=format&fit=crop&w=1200&q=70" onerror="this.onerror=null;this.src='images/villa.svg'" alt="Residential" width="800" height="500" loading="lazy">
             <div class="cb">
               <h3>Residential</h3>
               <p>Villas, apartments and gated communities built to your design.</p>
               <a class="more" href="service.html">Explore →</a>
             </div>
           </article>
-
           <article class="card tilt" data-r>
-            <img
-              src="https://images.unsplash.com/photo-1755530603707-045e3306e4df?auto=format&fit=crop&w=1200&q=70"
-              onerror="this.onerror=null;this.src='images/tower.svg'"
-              alt="Commercial"
-              width="800"
-              height="500"
-              loading="lazy"
-            >
+            <img src="https://images.unsplash.com/photo-1755530603707-045e3306e4df?auto=format&fit=crop&w=1200&q=70" onerror="this.onerror=null;this.src='images/tower.svg'" alt="Commercial" width="800" height="500" loading="lazy">
             <div class="cb">
               <h3>Commercial</h3>
               <p>Offices, retail spaces, hospitals and schools.</p>
               <a class="more" href="service.html">Explore →</a>
             </div>
           </article>
-
           <article class="card tilt" data-r>
-            <img
-              src="https://images.unsplash.com/photo-1660367439240-d38cb03a4365?auto=format&fit=crop&w=1200&q=70"
-              onerror="this.onerror=null;this.src='images/factory.svg'"
-              alt="Industrial"
-              width="800"
-              height="500"
-              loading="lazy"
-            >
+            <img src="https://images.unsplash.com/photo-1660367439240-d38cb03a4365?auto=format&fit=crop&w=1200&q=70" onerror="this.onerror=null;this.src='images/factory.svg'" alt="Industrial" width="800" height="500" loading="lazy">
             <div class="cb">
               <h3>Industrial</h3>
               <p>Factories, warehouses and pre-engineered steel buildings.</p>
@@ -266,56 +432,24 @@
           <div class="eb">How we work</div>
           <h2>A simple, transparent process</h2>
         </div>
-
         <div class="steps">
           <div class="step" data-r>
-            <img
-              src="https://images.unsplash.com/photo-1558227691-41ea78d1f631?auto=format&fit=crop&w=900&q=70"
-              onerror="this.onerror=null;this.src='images/crane.svg'"
-              alt="Consult stage"
-              width="800"
-              height="500"
-              loading="lazy"
-            >
+            <img src="https://images.unsplash.com/photo-1558227691-41ea78d1f631?auto=format&fit=crop&w=900&q=70" onerror="this.onerror=null;this.src='images/crane.svg'" alt="Consult stage" width="800" height="500" loading="lazy">
             <h3>Consult</h3>
             <p>Site visit, requirements and a free estimate.</p>
           </div>
-
           <div class="step" data-r>
-            <img
-              src="https://images.unsplash.com/photo-1768321914688-86ff62032d47?auto=format&fit=crop&w=900&q=70"
-              onerror="this.onerror=null;this.src='images/interior.svg'"
-              alt="Design stage"
-              width="800"
-              height="500"
-              loading="lazy"
-            >
+            <img src="https://images.unsplash.com/photo-1768321914688-86ff62032d47?auto=format&fit=crop&w=900&q=70" onerror="this.onerror=null;this.src='images/interior.svg'" alt="Design stage" width="800" height="500" loading="lazy">
             <h3>Design</h3>
             <p>Drawings, approvals and a fixed-price quote.</p>
           </div>
-
           <div class="step" data-r>
-            <img
-              src="https://images.unsplash.com/photo-1687169503260-85f00f122398?auto=format&fit=crop&w=900&q=70"
-              onerror="this.onerror=null;this.src='images/villa.svg'"
-              alt="Build stage"
-              width="800"
-              height="500"
-              loading="lazy"
-            >
+            <img src="https://images.unsplash.com/photo-1687169503260-85f00f122398?auto=format&fit=crop&w=900&q=70" onerror="this.onerror=null;this.src='images/villa.svg'" alt="Build stage" width="800" height="500" loading="lazy">
             <h3>Build</h3>
             <p>Supervised construction with weekly progress updates.</p>
           </div>
-
           <div class="step" data-r>
-            <img
-              src="https://images.unsplash.com/photo-1755530603707-045e3306e4df?auto=format&fit=crop&w=900&q=70"
-              onerror="this.onerror=null;this.src='images/tower.svg'"
-              alt="Handover stage"
-              width="800"
-              height="500"
-              loading="lazy"
-            >
+            <img src="https://images.unsplash.com/photo-1755530603707-045e3306e4df?auto=format&fit=crop&w=900&q=70" onerror="this.onerror=null;this.src='images/tower.svg'" alt="Handover stage" width="800" height="500" loading="lazy">
             <h3>Handover</h3>
             <p>Quality checks, handover and 5-year warranty.</p>
           </div>
@@ -328,52 +462,24 @@
         <div data-r>
           <div class="eb">Renovation</div>
           <h2>See the transformation</h2>
-
           <p class="mut" style="margin-top:10px">
             Drag the slider to compare a property before and after our
             renovation team finished.
           </p>
-
           <ul class="ticks">
             <li>Structural repair and waterproofing</li>
             <li>Modern facades and interiors</li>
             <li>Completed in as little as 8 weeks</li>
           </ul>
-
           <a class="btn dk" href="contact.html">Plan my renovation</a>
         </div>
-
         <div class="ba" data-r>
-          <img
-            src="https://images.unsplash.com/photo-1653280662710-1cac52cde6d7?auto=format&fit=crop&w=1200&q=70"
-            onerror="this.onerror=null;this.src='images/villa2.svg'"
-            alt="After renovation"
-            width="800"
-            height="500"
-            loading="lazy"
-          >
-
-          <img
-            class="b"
-            src="https://images.unsplash.com/photo-1653280662710-1cac52cde6d7?auto=format&fit=crop&w=1200&q=70"
-            onerror="this.onerror=null;this.src='images/villa2.svg'"
-            alt="Before renovation"
-            width="800"
-            height="500"
-            loading="lazy"
-          >
-
+          <img src="https://images.unsplash.com/photo-1653280662710-1cac52cde6d7?auto=format&fit=crop&w=1200&q=70" onerror="this.onerror=null;this.src='images/villa2.svg'" alt="After renovation" width="800" height="500" loading="lazy">
+          <img class="b" src="https://images.unsplash.com/photo-1653280662710-1cac52cde6d7?auto=format&fit=crop&w=1200&q=70" onerror="this.onerror=null;this.src='images/villa2.svg'" alt="Before renovation" width="800" height="500" loading="lazy">
           <i></i>
           <em>Before</em>
           <em>After</em>
-
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value="50"
-            aria-label="Before and after slider"
-          >
+          <input type="range" min="0" max="100" value="50" aria-label="Before and after slider">
         </div>
       </div>
     </section>
@@ -385,65 +491,25 @@
           <h2>A look inside our worksites</h2>
           <p>Real crews, real progress, from foundation to finishing.</p>
         </div>
-
         <div class="mos">
           <figure class="big" data-r>
-            <img
-              src="https://images.unsplash.com/photo-1653280662710-1cac52cde6d7?auto=format&fit=crop&w=900&q=70"
-              onerror="this.onerror=null;this.src='images/villa2.svg'"
-              alt="Housing site teamwork"
-              width="800"
-              height="500"
-              loading="lazy"
-            >
+            <img src="https://images.unsplash.com/photo-1653280662710-1cac52cde6d7?auto=format&fit=crop&w=900&q=70" onerror="this.onerror=null;this.src='images/villa2.svg'" alt="Housing site teamwork" width="800" height="500" loading="lazy">
             <figcaption>Housing site teamwork</figcaption>
           </figure>
-
           <figure data-r>
-            <img
-              src="https://images.unsplash.com/photo-1625337905916-f1172a75d5b8?auto=format&fit=crop&w=900&q=70"
-              onerror="this.onerror=null;this.src='images/reno.svg'"
-              alt="Foundation and formwork"
-              width="800"
-              height="500"
-              loading="lazy"
-            >
+            <img src="https://images.unsplash.com/photo-1625337905916-f1172a75d5b8?auto=format&fit=crop&w=900&q=70" onerror="this.onerror=null;this.src='images/reno.svg'" alt="Foundation and formwork" width="800" height="500" loading="lazy">
             <figcaption>Foundation and formwork</figcaption>
           </figure>
-
           <figure data-r>
-            <img
-              src="https://images.unsplash.com/photo-1558227691-41ea78d1f631?auto=format&fit=crop&w=900&q=70"
-              onerror="this.onerror=null;this.src='images/crane.svg'"
-              alt="Skilled site crews"
-              width="800"
-              height="500"
-              loading="lazy"
-            >
+            <img src="https://images.unsplash.com/photo-1558227691-41ea78d1f631?auto=format&fit=crop&w=900&q=70" onerror="this.onerror=null;this.src='images/crane.svg'" alt="Skilled site crews" width="800" height="500" loading="lazy">
             <figcaption>Skilled site crews</figcaption>
           </figure>
-
           <figure data-r>
-            <img
-              src="https://images.unsplash.com/photo-1768321914688-86ff62032d47?auto=format&fit=crop&w=900&q=70"
-              onerror="this.onerror=null;this.src='images/interior.svg'"
-              alt="Interior framing"
-              width="800"
-              height="500"
-              loading="lazy"
-            >
+            <img src="https://images.unsplash.com/photo-1768321914688-86ff62032d47?auto=format&fit=crop&w=900&q=70" onerror="this.onerror=null;this.src='images/interior.svg'" alt="Interior framing" width="800" height="500" loading="lazy">
             <figcaption>Interior framing</figcaption>
           </figure>
-
           <figure data-r>
-            <img
-              src="https://images.unsplash.com/photo-1660367439240-d38cb03a4365?auto=format&fit=crop&w=900&q=70"
-              onerror="this.onerror=null;this.src='images/factory.svg'"
-              alt="Industrial plant site"
-              width="800"
-              height="500"
-              loading="lazy"
-            >
+            <img src="https://images.unsplash.com/photo-1660367439240-d38cb03a4365?auto=format&fit=crop&w=900&q=70" onerror="this.onerror=null;this.src='images/factory.svg'" alt="Industrial plant site" width="800" height="500" loading="lazy">
             <figcaption>Industrial plant site</figcaption>
           </figure>
         </div>
@@ -456,77 +522,29 @@
           <div class="eb">Our work</div>
           <h2>Featured projects</h2>
         </div>
-
         <div class="projs">
           <a class="proj" data-r href="Gallery.html">
-            <img
-              src="https://images.unsplash.com/photo-1687169503260-85f00f122398?auto=format&fit=crop&w=1200&q=70"
-              onerror="this.onerror=null;this.src='images/villa.svg'"
-              alt="Residential Housing Project"
-              width="800"
-              height="500"
-              loading="lazy"
-            >
+            <img src="https://images.unsplash.com/photo-1687169503260-85f00f122398?auto=format&fit=crop&w=1200&q=70" onerror="this.onerror=null;this.src='images/villa.svg'" alt="Residential Housing Project" width="800" height="500" loading="lazy">
             <span>Residential Housing Project</span>
           </a>
-
           <a class="proj" data-r href="Gallery.html">
-            <img
-              src="https://images.unsplash.com/photo-1722079358008-2c72a8973998?auto=format&fit=crop&w=1200&q=70"
-              onerror="this.onerror=null;this.src='images/tower2.svg'"
-              alt="Commercial Site with Crane"
-              width="800"
-              height="500"
-              loading="lazy"
-            >
+            <img src="https://images.unsplash.com/photo-1722079358008-2c72a8973998?auto=format&fit=crop&w=1200&q=70" onerror="this.onerror=null;this.src='images/tower2.svg'" alt="Commercial Site with Crane" width="800" height="500" loading="lazy">
             <span>Commercial Site with Crane</span>
           </a>
-
           <a class="proj" data-r href="Gallery.html">
-            <img
-              src="https://images.unsplash.com/photo-1660367439240-d38cb03a4365?auto=format&fit=crop&w=1200&q=70"
-              onerror="this.onerror=null;this.src='images/factory.svg'"
-              alt="Industrial Plant Site"
-              width="800"
-              height="500"
-              loading="lazy"
-            >
+            <img src="https://images.unsplash.com/photo-1660367439240-d38cb03a4365?auto=format&fit=crop&w=1200&q=70" onerror="this.onerror=null;this.src='images/factory.svg'" alt="Industrial Plant Site" width="800" height="500" loading="lazy">
             <span>Industrial Plant Site</span>
           </a>
-
           <a class="proj" data-r href="Gallery.html">
-            <img
-              src="https://images.unsplash.com/photo-1768321914688-86ff62032d47?auto=format&fit=crop&w=900&q=70"
-              onerror="this.onerror=null;this.src='images/interior.svg'"
-              alt="Heritage Interior Renovation"
-              width="800"
-              height="500"
-              loading="lazy"
-            >
+            <img src="https://images.unsplash.com/photo-1768321914688-86ff62032d47?auto=format&fit=crop&w=900&q=70" onerror="this.onerror=null;this.src='images/interior.svg'" alt="Heritage Interior Renovation" width="800" height="500" loading="lazy">
             <span>Heritage Interior Renovation</span>
           </a>
-
           <a class="proj" data-r href="Gallery.html">
-            <img
-              src="https://images.unsplash.com/photo-1625337905916-f1172a75d5b8?auto=format&fit=crop&w=900&q=70"
-              onerror="this.onerror=null;this.src='images/reno.svg'"
-              alt="Foundation and Formwork"
-              width="800"
-              height="500"
-              loading="lazy"
-            >
+            <img src="https://images.unsplash.com/photo-1625337905916-f1172a75d5b8?auto=format&fit=crop&w=900&q=70" onerror="this.onerror=null;this.src='images/reno.svg'" alt="Foundation and Formwork" width="800" height="500" loading="lazy">
             <span>Foundation and Formwork</span>
           </a>
-
           <a class="proj" data-r href="Gallery.html">
-            <img
-              src="https://images.unsplash.com/photo-1704742950992-9815a104820c?auto=format&fit=crop&w=900&q=70"
-              onerror="this.onerror=null;this.src='images/reno.svg'"
-              alt="Home Remodel Framing"
-              width="800"
-              height="500"
-              loading="lazy"
-            >
+            <img src="https://images.unsplash.com/photo-1704742950992-9815a104820c?auto=format&fit=crop&w=900&q=70" onerror="this.onerror=null;this.src='images/reno.svg'" alt="Home Remodel Framing" width="800" height="500" loading="lazy">
             <span>Home Remodel Framing</span>
           </a>
         </div>
@@ -539,7 +557,6 @@
           <div class="eb">Testimonials</div>
           <h2>Trusted by our clients</h2>
         </div>
-
         <div class="ts" data-r>
           <div class="tr">
             <div class="tq">
@@ -548,14 +565,12 @@
               <b>Priya Raman</b>
               <small>Villa owner, Chennai</small>
             </div>
-
             <div class="tq">
               <div class="stars">★★★★★</div>
               <p>“Transparent pricing and weekly updates. We always knew where the project stood.”</p>
               <b>Karthik S.</b>
               <small>Director, Metro Tech</small>
             </div>
-
             <div class="tq">
               <div class="stars">★★★★★</div>
               <p>“They delivered our 40,000 sq ft warehouse on schedule and within budget.”</p>
@@ -563,7 +578,6 @@
               <small>Operations Head, Orbit Logistics</small>
             </div>
           </div>
-
           <div class="dots"></div>
         </div>
       </div>
@@ -572,12 +586,10 @@
     <section class="ctab">
       <div class="c" data-r>
         <h2>Ready to start your project?</h2>
-
         <p>
           Tell us what you want to build and get a free,
           no-obligation estimate within 24 hours.
         </p>
-
         <div class="acts">
           <a class="btn" href="contact.html">Get a free quote</a>
           <a class="btn ghost" href="tel:+919876543210">
@@ -594,7 +606,6 @@
         <a class="logo" href="index.html">
           <span class="lm">T</span>Terra<b>Build</b>
         </a>
-
         <p>
           Residential, commercial and industrial construction across
           Tamil Nadu since 2004.
@@ -639,6 +650,23 @@
   </div>
 
   <button id="up" aria-label="Back to top">↑</button>
+
+  <script>
+    (function () {
+      var tools = document.getElementById('devops-tools');
+      var toggle = document.getElementById('devops-tools-toggle');
+
+      if (!tools || !toggle) return;
+
+      toggle.hidden = false;
+
+      toggle.addEventListener('click', function () {
+        var paused = tools.classList.toggle('is-paused');
+        toggle.setAttribute('aria-pressed', String(paused));
+        toggle.textContent = paused ? 'Resume rolling' : 'Pause rolling';
+      });
+    })();
+  </script>
 
   <script src="index.js"></script>
 </body>
