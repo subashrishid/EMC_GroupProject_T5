@@ -1,2 +1,2 @@
-# EMC-Project-1
-Group Activity Project
+# EMC_GroupProject_T5
+EMC Group Project

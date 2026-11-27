@@ -20,7 +20,7 @@ const co=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return
 $$('[data-count]').forEach(el=>co.observe(el));
 if(matchMedia('(hover:hover)').matches)$$('.tilt').forEach(c=>{c.onmousemove=e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(800px) rotateY(${x*7}deg) rotateX(${-y*7}deg) translateY(-4px)`};c.onmouseleave=()=>c.style.transform=''});
 // ---- Home only ----
-const rot=$('.rot');if(rot){const w=['Homes','Offices','Villas','Factories'];let i=0;setInterval(()=>{rot.style.opacity=0;setTimeout(()=>{i=(i+1)%w.length;rot.textContent=w[i];rot.style.opacity=1},300)},2500)}
+const rot=$('.rot');if(rot){const w=['LINUX','GITHUB','AWS','TERRAFORM','DOCKER','KUBERNETES'];let i=0;setInterval(()=>{rot.style.opacity=0;setTimeout(()=>{i=(i+1)%w.length;rot.textContent=w[i];rot.style.opacity=1},300)},2500)}
 const hi=$('.hero-img');if(hi)addEventListener('scroll',()=>{hi.style.transform=`translateY(${Math.min(scrollY,600)*.07}px)`},{passive:true});
 const ba=$('.ba');if(ba){const r=$('input',ba);r.oninput=()=>ba.style.setProperty('--p',r.value+'%')}
 const tr=$('.tr');if(tr){const n=tr.children.length,dots=$('.dots');let k=0,t,x0;
