@@ -1,5 +1,5 @@
 /* ===== TerraBuild: base design system + Home styles (loaded on every page) ===== */
-:root{--bg:#fff;--bg2:#f1f6ff;--fg:#12233f;--mut:#55678a;--card:#fff;--line:#dbe6f6;--br:#1e6bd6;--ac:#ff8a1f;--dk:#163f86;--r:18px;--sh:0 12px 32px rgba(10,25,50,.09);--pad:clamp(18px,5vw,48px);--hh:66px}
+:root{--bg:#cadc66;--bg2:#80d93c;--fg:#000000;--mut:#55678a;--card:#fff;--line:#dbe6f6;--br:#d61ea2;--ac:#ff8a1f;--dk:#861680;--r:18px;--sh:0 12px 32px rgba(10,25,50,.09);--pad:clamp(18px,5vw,48px);--hh:66px}
 [data-theme=dark]{--bg:#07111f;--bg2:#0c1a2e;--fg:#e8eefa;--mut:#9fb0cc;--card:#10233d;--line:#1d3350;--sh:0 12px 32px rgba(0,0,0,.45)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:var(--hh)}
@@ -46,7 +46,7 @@ section{padding:clamp(56px,9vw,100px) 0}
 #up{position:fixed;right:16px;bottom:74px;width:46px;height:46px;border-radius:50%;border:0;background:var(--br);color:#fff;font-size:1.2rem;cursor:pointer;z-index:44;opacity:0;pointer-events:none;transform:translateY(12px);transition:.3s;box-shadow:var(--sh)}
 #up.show{opacity:1;pointer-events:auto;transform:none}
 /* hero + page head */
-.hero{position:relative;overflow:hidden;color:#fff;background:radial-gradient(900px 500px at 85% 10%,rgba(255,138,31,.22),transparent 60%),radial-gradient(700px 500px at 0 100%,rgba(56,130,220,.25),transparent 60%),var(--dk);padding:clamp(40px,9vw,96px) 0 clamp(56px,9vw,100px)}
+.hero{position:relative;overflow:hidden;color:#ffffff;background:radial-gradient(900px 500px at 85% 10%,rgba(255,138,31,.22),transparent 60%),radial-gradient(700px 500px at 0 100%,rgba(56,130,220,.25),transparent 60%),var(--dk);padding:clamp(40px,9vw,96px) 0 clamp(56px,9vw,100px)}
 .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px) 0 0/48px 48px,linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px) 0 0/48px 48px;mask-image:linear-gradient(#000,transparent 85%)}
 .hero .c{position:relative;display:grid;gap:40px;align-items:center}
 .pill{display:inline-block;padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);font-size:.85rem;font-weight:600;margin-bottom:18px}
